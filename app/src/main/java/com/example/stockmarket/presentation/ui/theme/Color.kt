@@ -1,4 +1,4 @@
-package com.example.stockmarket.ui.theme
+package com.example.stockmarket.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
