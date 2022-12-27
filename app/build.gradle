@@ -3,7 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
-    id 'com.google.devtools.ksp' version '1.6.21-1.0.6'
 }
 
 android {
@@ -50,14 +49,6 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-
-    applicationVariants.all { variant ->
-        kotlin.sourceSets {
-            getByName(variant.name) {
-                kotlin.srcDir("build/generated/ksp/${variant.name}/kotlin")
-            }
-        }
-    }
 }
 
 dependencies {
@@ -67,23 +58,22 @@ dependencies {
 
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
 
     //room
     implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
     //opencsv
     implementation 'com.opencsv:opencsv:4.6'
 
-    //compose nav destinations
-
-    implementation 'io.github.raamcosta.compose-destinations:core:1.7.27-beta'
-    ksp 'io.github.raamcosta.compose-destinations:ksp:1.7.27-beta'
-
     //use hilt in jetpack compose
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
+
+    //navigation for compose
+
+    implementation "androidx.navigation:navigation-compose:$nav_version"
 
     //swipe refresh
     implementation "com.google.accompanist:accompanist-swiperefresh:0.28.0"
