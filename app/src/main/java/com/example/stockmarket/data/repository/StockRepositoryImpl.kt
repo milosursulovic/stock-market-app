@@ -1,5 +1,6 @@
 package com.example.stockmarket.data.repository
 
+import android.util.Log
 import com.example.stockmarket.data.csv.CSVParser
 import com.example.stockmarket.data.local.StockDatabase
 import com.example.stockmarket.data.mapper.toCompanyInfo
@@ -69,8 +70,9 @@ class StockRepositoryImpl @Inject constructor(
 
     override suspend fun getIntradayInfo(symbol: String): Resource<List<IntradayInfo>> =
         try {
-            val response = api.getIntradayInfo(symbol = symbol)
+            val response = api.getIntradayInfo(symbol)
             val results = intradayInfoParser.parse(response.byteStream())
+            Log.d(TAG, "getIntradayInfo: $results")
             Resource.Success(results)
         } catch (e: IOException) {
             e.printStackTrace()
@@ -82,7 +84,8 @@ class StockRepositoryImpl @Inject constructor(
 
     override suspend fun getCompanyInfo(symbol: String): Resource<CompanyInfo> =
         try {
-            val result = api.getCompanyInfo(symbol = symbol)
+            val result = api.getCompanyInfo(symbol)
+            Log.d(TAG, "getCompanyInfo: $result")
             Resource.Success(result.toCompanyInfo())
         } catch (e: IOException) {
             e.printStackTrace()
