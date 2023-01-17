@@ -1,6 +1,7 @@
 package com.example.stockmarket.di
 
 import com.example.stockmarket.data.remote.StockApi
+import com.example.stockmarket.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +17,7 @@ object RemoteModule {
     @Provides
     fun providesStockApi(): StockApi =
         Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(Constants.API_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
             .create(StockApi::class.java)
